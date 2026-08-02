@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Calendar appointment or event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "category": { "type": "string" },
+        "reminderMinutes": { "type": "number" },
+        "source": { "type": "string" },
+        "color": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "location": { "type": "string" },
+        "instructor": { "type": "string" },
+        "googleEventId": { "type": "string" },
+        "notified": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "date", "startTime", "endTime", "category", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User account document",
+      "allow": {
+        "read": "auth != null && auth.uid == userId",
+        "write": "auth != null && auth.uid == userId"
+      }
+    },
+    "/users/{userId}/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "User specific appointments",
+      "allow": {
+        "read": "auth != null && auth.uid == userId",
+        "write": "auth != null && auth.uid == userId"
+      }
+    }
+  }
+}

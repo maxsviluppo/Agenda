@@ -1,0 +1,6 @@
+{
+  "name": "Calendario",
+  "description": "Agenda classica per appuntamenti con righe grigie, sincronizzazione Google Calendar, notifiche, importazione CSV corsi e inserimento vocale.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
