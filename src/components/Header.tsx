@@ -189,6 +189,18 @@ export const Header: React.FC<HeaderProps> = ({
               <FileSpreadsheet className="w-5 h-5 text-orange-700 dark:text-orange-300" />
             </button>
 
+            {/* Dark / Light Mode Toggle Button */}
+            {onToggleDarkMode && (
+              <button
+                id="dark-mode-toggle-btn"
+                onClick={onToggleDarkMode}
+                className="p-2.5 rounded-xl bg-amber-100 dark:bg-stone-800 hover:bg-amber-200 dark:hover:bg-stone-700 text-amber-900 dark:text-amber-300 border border-amber-300/80 dark:border-stone-700 shadow-xs transition-all cursor-pointer active:scale-95 min-h-[38px] min-w-[38px] flex items-center justify-center shrink-0"
+                title={isDarkMode ? 'Passa a Modalità Chiara' : 'Passa a Modalità Scura'}
+              >
+                {isDarkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-amber-700" />}
+              </button>
+            )}
+
             {/* Profile Icon (Top Right) */}
             <button
               id="profile-btn"

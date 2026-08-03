@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { Header } from './components/Header';
 import { CleanDailyView } from './components/CleanDailyView';
 import { MonthCalendarView } from './components/MonthCalendarView';
@@ -41,10 +40,32 @@ import {
 const LOCAL_STORAGE_KEY = 'agenda_classica_appointments_v1';
 
 export default function App() {
-  // 0. Dark Mode permanently enabled
+  // 0. Dark Mode State (defaults to dark mode, can toggle light/dark)
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('agenda_dark_mode');
+      if (saved !== null) return saved === 'true';
+    } catch (e) {}
+    return true; // Default to dark mode
+  });
+
   useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem('agenda_dark_mode', String(next));
+      } catch (e) {}
+      return next;
+    });
+  };
 
   // 0. Firebase User Authentication State
   const [user, setUser] = useState<FirebaseUser | null>(null);
@@ -510,7 +531,8 @@ export default function App() {
         notificationsEnabled={notificationsEnabled}
         onRequestNotifications={handleRequestNotifications}
         onOpenProfile={() => setIsProfileModalOpen(true)}
-        isDarkMode={true}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
         userName={user?.displayName || (user?.email ? user.email.split('@')[0] : '')}
       />
 
@@ -526,80 +548,53 @@ export default function App() {
 
       {/* Main View Area: 30 Giorni (Month) vs Giornaliero (Clean Chronological List) */}
       <main className="flex-1 relative overflow-x-hidden">
-        <AnimatePresence mode="wait" initial={false} custom={viewDirection}>
-          <motion.div
-            key={activeView}
-            custom={viewDirection}
-            variants={{
-              enter: (dir: number) => ({
-                x: dir > 0 ? '100%' : '-100%',
-                opacity: 0,
-              }),
-              center: {
-                x: '0%',
-                opacity: 1,
-              },
-              exit: (dir: number) => ({
-                x: dir > 0 ? '-100%' : '100%',
-                opacity: 0,
-              }),
-            }}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.18 },
-            }}
-            className="w-full"
-          >
-            {activeView === 'month' ? (
-              <MonthCalendarView
-                selectedDate={currentDate}
-                onSelectDate={(date) => {
-                  setCurrentDate(date);
-                }}
-                appointments={filteredAppointments}
-                conflicts={allConflicts}
-                onOpenAddModal={() => {
-                  setEditingAppointment(null);
-                  setSlotDefaultHour('09:00');
-                  setIsAddModalOpen(true);
-                }}
-                onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
-                onOpenCsvModal={() => setIsCsvModalOpen(true)}
-                onSwitchToDailyView={() => handleViewChange('daily')}
-                onToggleComplete={handleToggleComplete}
-                onEditAppointment={(app) => {
-                  setEditingAppointment(app);
-                  setIsAddModalOpen(true);
-                }}
-                onDeleteAppointment={handleDeleteAppointment}
-              />
-            ) : (
-              <CleanDailyView
-                currentDate={currentDate}
-                appointments={filteredAppointments}
-                conflicts={allConflicts}
-                onToggleComplete={handleToggleComplete}
-                onEditAppointment={(app) => {
-                  setEditingAppointment(app);
-                  setIsAddModalOpen(true);
-                }}
-                onDeleteAppointment={handleDeleteAppointment}
-                onOpenAddModal={() => {
-                  setEditingAppointment(null);
-                  setSlotDefaultHour('09:00');
-                  setIsAddModalOpen(true);
-                }}
-                onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
-                onOpenCsvModal={() => setIsCsvModalOpen(true)}
-                onDateChange={setCurrentDate}
-                onSwitchToMonthView={() => handleViewChange('month')}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+        <div key={activeView} className="w-full transition-all duration-200">
+          {activeView === 'month' ? (
+            <MonthCalendarView
+              selectedDate={currentDate}
+              onSelectDate={(date) => {
+                setCurrentDate(date);
+              }}
+              appointments={filteredAppointments}
+              conflicts={allConflicts}
+              onOpenAddModal={() => {
+                setEditingAppointment(null);
+                setSlotDefaultHour('09:00');
+                setIsAddModalOpen(true);
+              }}
+              onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
+              onOpenCsvModal={() => setIsCsvModalOpen(true)}
+              onSwitchToDailyView={() => handleViewChange('daily')}
+              onToggleComplete={handleToggleComplete}
+              onEditAppointment={(app) => {
+                setEditingAppointment(app);
+                setIsAddModalOpen(true);
+              }}
+              onDeleteAppointment={handleDeleteAppointment}
+            />
+          ) : (
+            <CleanDailyView
+              currentDate={currentDate}
+              appointments={filteredAppointments}
+              conflicts={allConflicts}
+              onToggleComplete={handleToggleComplete}
+              onEditAppointment={(app) => {
+                setEditingAppointment(app);
+                setIsAddModalOpen(true);
+              }}
+              onDeleteAppointment={handleDeleteAppointment}
+              onOpenAddModal={() => {
+                setEditingAppointment(null);
+                setSlotDefaultHour('09:00');
+                setIsAddModalOpen(true);
+              }}
+              onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
+              onOpenCsvModal={() => setIsCsvModalOpen(true)}
+              onDateChange={setCurrentDate}
+              onSwitchToMonthView={() => handleViewChange('month')}
+            />
+          )}
+        </div>
       </main>
 
       {/* Mobile Fixed Bottom Navigation Bar */}

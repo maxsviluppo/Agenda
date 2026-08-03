@@ -175,10 +175,10 @@ export const MonthCalendarModal: React.FC<MonthCalendarModalProps> = ({
                     isSelected
                       ? 'btn-gradient-primary shadow-md border-indigo-700 text-white'
                       : isTodayCell
-                      ? 'bg-amber-50 border-amber-400 text-stone-900 font-bold'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-200 font-bold dark:bg-amber-500/20 dark:border-amber-500 dark:text-amber-200'
                       : cell.isCurrentMonth
-                      ? 'bg-white border-stone-200 hover:border-stone-400 hover:bg-stone-50 text-stone-800'
-                      : 'bg-stone-50/50 border-stone-100 text-stone-300 hover:bg-stone-100'
+                      ? 'bg-white dark:bg-stone-800/90 border-stone-200 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-100'
+                      : 'bg-stone-50/50 dark:bg-stone-900/40 border-stone-100 dark:border-stone-800/60 text-stone-300 dark:text-stone-600 hover:bg-stone-100 dark:hover:bg-stone-800/40'
                   }`}
                 >
                   {/* Top Day Number & Badges */}
