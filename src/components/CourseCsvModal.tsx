@@ -180,31 +180,31 @@ export const CourseCsvModal: React.FC<CourseCsvModalProps> = ({
               )}
 
               {/* Preview List */}
-              <div className="border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden shadow-xs">
-                <div className="bg-stone-100 dark:bg-stone-800 px-4 py-2.5 border-b border-stone-200 dark:border-stone-700 text-xs font-bold text-stone-800 dark:text-stone-200 flex justify-between items-center">
+              <div className="border border-stone-200 rounded-2xl overflow-hidden shadow-xs">
+                <div className="bg-stone-100 px-4 py-2.5 border-b border-stone-200 text-xs font-bold text-stone-800 flex justify-between items-center">
                   <span>Anteprima Lezioni ({parsedPreview.length})</span>
-                  <span className="text-[11px] font-medium text-stone-500 dark:text-stone-400">Pronto per l'agenda</span>
+                  <span className="text-[11px] font-medium text-stone-500">Pronto per l'agenda</span>
                 </div>
 
-                <div className="divide-y divide-stone-100 dark:divide-stone-800 max-h-52 overflow-y-auto bg-white dark:bg-stone-900 text-xs">
+                <div className="divide-y divide-stone-100 max-h-52 overflow-y-auto bg-white text-xs">
                   {parsedPreview.map((item, idx) => (
-                    <div key={idx} className="p-3 flex items-start justify-between gap-3 hover:bg-purple-50/30 dark:hover:bg-purple-900/20 transition-colors">
+                    <div key={idx} className="p-3 flex items-start justify-between gap-3 hover:bg-purple-50/30 transition-colors">
                       <div className="space-y-1">
-                        <div className="font-bold text-stone-900 dark:text-stone-100 text-sm">{item.title}</div>
-                        <div className="text-stone-600 dark:text-stone-300 font-medium flex flex-wrap items-center gap-3 text-xs">
-                          <span className="flex items-center gap-1 text-purple-900 dark:text-purple-300 font-bold">
-                            <CalendarIcon className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" /> {item.date}
+                        <div className="font-bold text-stone-900 text-sm">{item.title}</div>
+                        <div className="text-stone-600 font-medium flex flex-wrap items-center gap-3 text-xs">
+                          <span className="flex items-center gap-1 text-purple-900 font-bold">
+                            <CalendarIcon className="w-3.5 h-3.5 text-purple-600" /> {item.date}
                           </span>
-                          <span className="flex items-center gap-1 text-stone-700 dark:text-stone-300 font-bold">
-                            <Clock className="w-3.5 h-3.5 text-stone-400 dark:text-stone-500" /> {item.startTime} - {item.endTime}
+                          <span className="flex items-center gap-1 text-stone-700 font-bold">
+                            <Clock className="w-3.5 h-3.5 text-stone-400" /> {item.startTime} - {item.endTime}
                           </span>
                         </div>
                         {item.instructor && (
-                          <div className="text-stone-500 dark:text-stone-400 text-[11px]">Docente: <strong className="text-stone-700 dark:text-stone-200">{item.instructor}</strong></div>
+                          <div className="text-stone-500 text-[11px]">Docente: <strong className="text-stone-700">{item.instructor}</strong></div>
                         )}
                       </div>
 
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-purple-100 dark:bg-purple-950/80 text-purple-900 dark:text-purple-200 border border-purple-200 dark:border-purple-800 shrink-0">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-purple-100 text-purple-900 border border-purple-200 shrink-0">
                         Corso / Docenza
                       </span>
                     </div>

@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header id="agenda-header" className="bg-[#fcfbf9] dark:bg-[#181824] border-b border-stone-200 dark:border-stone-800 sticky top-0 z-30 shadow-xs transition-colors duration-200">
+    <header id="agenda-header" className="bg-white/95 dark:bg-[#0a0a12]/95 border-b border-orange-200/80 dark:border-stone-800/90 sticky top-0 z-30 shadow-xs backdrop-blur-md transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
         {/* Top bar with Branding, Date Navigator and Quick Actions */}
         <div className="flex flex-row items-center justify-between gap-2 sm:gap-3">
@@ -189,15 +189,15 @@ export const Header: React.FC<HeaderProps> = ({
               <FileSpreadsheet className="w-5 h-5 text-orange-700 dark:text-orange-300" />
             </button>
 
-            {/* Dark / Light Mode Toggle Button */}
+            {/* Dark/Light Mode Toggle */}
             {onToggleDarkMode && (
               <button
                 id="dark-mode-toggle-btn"
                 onClick={onToggleDarkMode}
-                className="p-2.5 rounded-xl bg-amber-100 dark:bg-stone-800 hover:bg-amber-200 dark:hover:bg-stone-700 text-amber-900 dark:text-amber-300 border border-amber-300/80 dark:border-stone-700 shadow-xs transition-all cursor-pointer active:scale-95 min-h-[38px] min-w-[38px] flex items-center justify-center shrink-0"
-                title={isDarkMode ? 'Passa a Modalità Chiara' : 'Passa a Modalità Scura'}
+                className="p-2.5 rounded-xl bg-orange-100 dark:bg-stone-900 border border-orange-200 dark:border-orange-500/40 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-stone-800 transition-all cursor-pointer active:scale-95 min-h-[38px] min-w-[38px] flex items-center justify-center shrink-0"
+                title={isDarkMode ? 'Passa a Modalità Chiara (Arancio & Bianco)' : 'Passa a Modalità Scura (Nero & Arancio)'}
               >
-                {isDarkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-amber-700" />}
+                {isDarkMode ? <Sun className="w-5 h-5 text-amber-400 animate-spin-slow" /> : <Moon className="w-5 h-5 text-orange-600" />}
               </button>
             )}
 

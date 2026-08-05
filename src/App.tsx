@@ -40,31 +40,27 @@ import {
 const LOCAL_STORAGE_KEY = 'agenda_classica_appointments_v1';
 
 export default function App() {
-  // 0. Dark Mode State (defaults to dark mode, can toggle light/dark)
+  // 0. Dark Mode toggle with persistent localStorage
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('agenda_dark_mode');
-      if (saved !== null) return saved === 'true';
-    } catch (e) {}
-    return true; // Default to dark mode
+    const saved = localStorage.getItem('theme');
+    if (saved !== null) {
+      return saved === 'dark';
+    }
+    return true; // default dark
   });
 
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      try {
-        localStorage.setItem('agenda_dark_mode', String(next));
-      } catch (e) {}
-      return next;
-    });
+    setIsDarkMode(prev => !prev);
   };
 
   // 0. Firebase User Authentication State
@@ -508,7 +504,7 @@ export default function App() {
   }, [appointments, filters, allConflicts]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f0f7ff] via-[#e6f2fe] to-[#dbeafe] dark:from-[#0d0f17] dark:via-[#161824] dark:to-[#090b10] text-stone-900 dark:text-stone-100 font-sans antialiased selection:bg-indigo-200 selection:text-indigo-900 flex flex-col pb-20 sm:pb-0 transition-colors duration-200">
+    <div className="min-h-screen bg-[#fffcfa] dark:bg-[#05050a] text-stone-900 dark:text-stone-100 font-sans antialiased selection:bg-orange-500 selection:text-white flex flex-col pb-20 sm:pb-0 transition-colors duration-200">
       
       {/* Top Header Bar */}
       <Header

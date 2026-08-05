@@ -146,7 +146,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
     <div id="month-calendar-view" className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6 animate-fadeIn">
       
       {/* Main Month Grid Container */}
-      <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-4 sm:p-6 shadow-sm space-y-4 transition-colors duration-200">
+      <div className="bg-white dark:bg-[#0c0c16] rounded-3xl border border-stone-200 dark:border-stone-800/90 p-4 sm:p-6 shadow-sm space-y-4 transition-colors duration-200">
         
         {/* Month Header & Controls Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pb-3 border-b border-stone-200 dark:border-stone-800">
